@@ -43,6 +43,10 @@
 .EN {
   margin-left: 20px;
 }
+.Message{
+  color: red;
+  font-size: 30px;
+}
 .ButtonBlock {
   grid-area: ButtonBlock;
   margin-top: 100px;

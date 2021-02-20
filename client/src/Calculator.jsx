@@ -8,6 +8,7 @@ const Calculator = () => {
   const [saveEtalon, setSaveEtalon] = useState({});
   const [count, setCount] = useState(0);
   const [getEtalon, setGetEtalon] = useState({});
+  const [message,setMessage]=useState("")
   let table = [];
   function Count(e) {
     let str =
@@ -22,11 +23,24 @@ const Calculator = () => {
       e.target.parentElement.parentElement.children[0].children[1].checked ===
         true
     ) {
-      console.log("error");
-    } else if (
+  setMessage("Please, select lenguage")
+    } 
+ else   if (
+      e.target.parentElement.parentElement.children[0].children[0].checked ===
+        false &&
+      e.target.parentElement.parentElement.children[0].children[1].checked ===
+        false
+    ) {
+  setMessage("Please, select lenguage")
+    }
+    
+    
+    
+    else if (
       e.target.parentElement.parentElement.children[0].children[0].checked ===
       true
     ) {
+      setMessage("")
       let dictUkr = {
         А: 0,
         Б: 0,
@@ -78,6 +92,7 @@ const Calculator = () => {
         dictUkr[key] =
           Math.round(((s * 100) / (arr.length - count)) * 100) / 100;
       }
+      
       setDict(dictUkr);
       setEtalon(etalonDict);
       setCount(arr.length - count);
@@ -89,6 +104,7 @@ const Calculator = () => {
       e.target.parentElement.parentElement.children[0].children[1].checked ===
       true
     ) {
+      setMessage("")
       let dictEng = {
         A: 0,
         B: 0,
@@ -302,7 +318,6 @@ const Calculator = () => {
       return result;
     }, {}))
   }
-
   let freq_en = {
     A: 8.17,
     B: 1.49,
@@ -394,6 +409,7 @@ const Calculator = () => {
       <div className="TextBlock">
         <div className="Title">Text</div>
         <textarea className="Text"></textarea>
+        <div className="Message">{message}</div>
       </div>
       <div className="ButtonBlock">
         <div className="LenguageBlock">
