@@ -1,0 +1,98 @@
+.App {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: ". Block .";
+}
+.Block {
+  margin-top: 100px;
+  width: 800px;
+  grid-area: Block;
+}
+.CalculatorBlock {
+  border-radius: 50px;
+  border: 5px solid red;
+  width: 100%;
+  min-height: 500px;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 1fr;
+  grid-template-areas: "TextBlock ButtonBlock TableBlock";
+}
+.TextBlock {
+  margin-top: 100px;
+  font-size: 50px;
+  font-weight: bold;
+  color: red;
+  grid-area: TextBlock;
+  resize: none;
+}
+.Text {
+  border: 2px solid red;
+  width: 250px;
+  height: 250px;
+  font-size: 20px;
+}
+
+.LenguageBlock {
+  color: red;
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+.EN {
+  margin-left: 20px;
+}
+.ButtonBlock {
+  grid-area: ButtonBlock;
+  margin-top: 100px;
+}
+.ButBlock {
+  display: block;
+}
+.But {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  background-color: red;
+  margin-bottom: 15px;
+  width: 150px;
+  height: 50px;
+  border-radius: 25px;
+}
+.TableBlock {
+  grid-area: TableBlock;
+}
+.TableRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-areas: "Symvol Persent Etalon MyEtalon";
+}
+
+.EnTable {
+  
+  margin: 30px 10px 30px 10px;
+  border: 1px solid red;
+}
+.TableRow {
+  border-bottom: 1px solid red;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  background: rgba(255, 0, 0, 0.3);
+}
+.Symvol {
+  border-right: 1px solid red;
+  grid-area: Symvol;
+}
+.Persent {
+  border-right: 1px solid red;
+  grid-area: Persent;
+}
+.Etalon {
+  border-right: 1px solid red;
+  grid-area: Etalon;
+}
+.MyEtalon{
+  grid-area: MyEtalon;
+}
