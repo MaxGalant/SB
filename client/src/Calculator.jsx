@@ -8,7 +8,7 @@ const Calculator = () => {
   const [saveEtalon, setSaveEtalon] = useState({});
   const [count, setCount] = useState(0);
   const [getEtalon, setGetEtalon] = useState({});
-  const [message,setMessage]=useState("")
+  const [message, setMessage] = useState("");
   let table = [];
   function Count(e) {
     let str =
@@ -23,24 +23,19 @@ const Calculator = () => {
       e.target.parentElement.parentElement.children[0].children[1].checked ===
         true
     ) {
-  setMessage("Please, select lenguage")
-    } 
- else   if (
+      setMessage("Please, select lenguage");
+    } else if (
       e.target.parentElement.parentElement.children[0].children[0].checked ===
         false &&
       e.target.parentElement.parentElement.children[0].children[1].checked ===
         false
     ) {
-  setMessage("Please, select lenguage")
-    }
-    
-    
-    
-    else if (
+      setMessage("Please, select lenguage");
+    } else if (
       e.target.parentElement.parentElement.children[0].children[0].checked ===
       true
     ) {
-      setMessage("")
+      setMessage("");
       let dictUkr = {
         А: 0,
         Б: 0,
@@ -92,19 +87,31 @@ const Calculator = () => {
         dictUkr[key] =
           Math.round(((s * 100) / (arr.length - count)) * 100) / 100;
       }
-      
-      setDict(dictUkr);
-      setEtalon(etalonDict);
-      setCount(arr.length - count);
+      let test = 0;
+      for (let key in dict) {
+        if (dict[key] == NaN) {
+          count++;
+          if (count > 0) {
+            break;
+          }
+        }
+      }
+      if (count === 0) {
+        setDict(dictUkr);
+        setEtalon(etalonDict);
+        setCount(arr.length - count);
 
-      axios.get("http://localhost:3001/getEtalonUkr").then((Response) => {
-        setGetEtalon(Response.data[0]);
-      });
+        axios.get("http://localhost:3001/getEtalonUkr").then((Response) => {
+          setGetEtalon(Response.data[0]);
+        });
+      } else {
+        setMessage("Please select correct lenguage");
+      }
     } else if (
       e.target.parentElement.parentElement.children[0].children[1].checked ===
       true
     ) {
-      setMessage("")
+      setMessage("");
       let dictEng = {
         A: 0,
         B: 0,
@@ -152,13 +159,26 @@ const Calculator = () => {
         dictEng[key] =
           Math.round(((s * 100) / (arr.length - count)) * 100) / 100;
       }
-      setDict(dictEng);
-      setEtalon(etalonDict);
-      setCount(arr.length - count);
+      let test = 0;
+      for (let key in dict) {
+        if (dict[key] == NaN) {
+          count++;
+          if (count > 0) {
+            break;
+          }
+        }
+      }
+      if (count === 0) {
+        setDict(dictEng);
+        setEtalon(etalonDict);
+        setCount(arr.length - count);
 
-      axios.get("http://localhost:3001/getEtalonEng").then((Response) => {
-        setGetEtalon(Response.data[0]);
-      });
+        axios.get("http://localhost:3001/getEtalonEng").then((Response) => {
+          setGetEtalon(Response.data[0]);
+        });
+      } else {
+        setMessage("Please select correct lenguage");
+      }
     }
   }
   function Save(e) {
@@ -174,8 +194,7 @@ const Calculator = () => {
     ) {
       axios
         .post("http://localhost:3001/saveEng", { text: text, dict: dict })
-        .then((Response) => {
-        });
+        .then((Response) => {});
       axios.get("http://localhost:3001/getEtalonEng").then((Response) => {
         setSaveEtalon(Response.data[0]);
 
@@ -193,8 +212,7 @@ const Calculator = () => {
     ) {
       axios
         .post("http://localhost:3001/saveUk", { text: text, dict: dict })
-        .then((Response) => {
-        });
+        .then((Response) => {});
       axios.get("http://localhost:3001/getEtalonUkr").then((Response) => {
         setSaveEtalon(Response.data[0]);
         axios
@@ -312,11 +330,15 @@ const Calculator = () => {
     newDict = Object.fromEntries(sortable);
     setDict(newDict);
   }
-  function SortKeys(){
-   setDict (Object.keys(dict).sort().reduce(function (result, key) {
-      result[key] = dict[key];
-      return result;
-    }, {}))
+  function SortKeys() {
+    setDict(
+      Object.keys(dict)
+        .sort()
+        .reduce(function (result, key) {
+          result[key] = dict[key];
+          return result;
+        }, {})
+    );
   }
   let freq_en = {
     A: 8.17,
@@ -428,7 +450,9 @@ const Calculator = () => {
           <button className="But" onClick={Save}>
             Save
           </button>
-          <button className="But" onClick={SortKeys}>Sort by keys</button>
+          <button className="But" onClick={SortKeys}>
+            Sort by keys
+          </button>
           <button onClick={SortValues} className="But">
             Sort by values
           </button>
