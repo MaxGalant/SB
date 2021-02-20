@@ -14,80 +14,81 @@ const Calculator = () => {
     let str =
       e.target.parentElement.parentElement.parentElement.children[0].children[1]
         .value;
-    setText(str);
-    let UpStr = str.toUpperCase();
-    let arr = UpStr.split("");
-    if (
-      e.target.parentElement.parentElement.children[0].children[0].checked ===
-        true &&
-      e.target.parentElement.parentElement.children[0].children[1].checked ===
+    if (str.length > 0) {
+      setText(str);
+      let UpStr = str.toUpperCase();
+      let arr = UpStr.split("");
+      if (
+        e.target.parentElement.parentElement.children[0].children[0].checked ===
+          true &&
+        e.target.parentElement.parentElement.children[0].children[1].checked ===
+          true
+      ) {
+        setMessage("Please, select lenguage");
+      } else if (
+        e.target.parentElement.parentElement.children[0].children[0].checked ===
+          false &&
+        e.target.parentElement.parentElement.children[0].children[1].checked ===
+          false
+      ) {
+        setMessage("Please, select lenguage");
+      } else if (
+        e.target.parentElement.parentElement.children[0].children[0].checked ===
         true
-    ) {
-      setMessage("Please, select lenguage");
-    } else if (
-      e.target.parentElement.parentElement.children[0].children[0].checked ===
-        false &&
-      e.target.parentElement.parentElement.children[0].children[1].checked ===
-        false
-    ) {
-      setMessage("Please, select lenguage");
-    } else if (
-      e.target.parentElement.parentElement.children[0].children[0].checked ===
-      true
-    ) {
-      setMessage("");
-      let dictUkr = {
-        А: 0,
-        Б: 0,
-        В: 0,
-        Г: 0,
-        Ґ: 0,
-        Д: 0,
-        Е: 0,
-        Є: 0,
-        Ж: 0,
-        З: 0,
-        И: 0,
-        І: 0,
-        Й: 0,
-        К: 0,
-        Л: 0,
-        М: 0,
-        Н: 0,
-        О: 0,
-        П: 0,
-        Р: 0,
-        С: 0,
-        Т: 0,
-        У: 0,
-        Ф: 0,
-        Х: 0,
-        Ц: 0,
-        Ч: 0,
-        Ш: 0,
-        Щ: 0,
-        Ь: 0,
-        Ю: 0,
-        Я: 0,
-      };
-      let etalonDict = {};
-      let count = 0;
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i] in dictUkr) {
-          let s = dictUkr[arr[i]];
-          s++;
-          dictUkr[arr[i]] = s;
-        } else {
-          count++;
+      ) {
+        setMessage("");
+        let dictUkr = {
+          А: 0,
+          Б: 0,
+          В: 0,
+          Г: 0,
+          Ґ: 0,
+          Д: 0,
+          Е: 0,
+          Є: 0,
+          Ж: 0,
+          З: 0,
+          И: 0,
+          І: 0,
+          Й: 0,
+          К: 0,
+          Л: 0,
+          М: 0,
+          Н: 0,
+          О: 0,
+          П: 0,
+          Р: 0,
+          С: 0,
+          Т: 0,
+          У: 0,
+          Ф: 0,
+          Х: 0,
+          Ц: 0,
+          Ч: 0,
+          Ш: 0,
+          Щ: 0,
+          Ь: 0,
+          Ю: 0,
+          Я: 0,
+        };
+        let etalonDict = {};
+        let count = 0;
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] in dictUkr) {
+            let s = dictUkr[arr[i]];
+            s++;
+            dictUkr[arr[i]] = s;
+          } else {
+            count++;
+          }
         }
-      }
-      for (let key in dictUkr) {
-        etalonDict[key] = dictUkr[key];
-        let s = dictUkr[key];
-        dictUkr[key] =
-          Math.round(((s * 100) / (arr.length - count)) * 100) / 100;
-      }
-      
+        for (let key in dictUkr) {
+          etalonDict[key] = dictUkr[key];
+          let s = dictUkr[key];
+          dictUkr[key] =
+            Math.round(((s * 100) / (arr.length - count)) * 100) / 100;
+        }
+
         setDict(dictUkr);
         setEtalon(etalonDict);
         setCount(arr.length - count);
@@ -95,60 +96,59 @@ const Calculator = () => {
         axios.get("http://localhost:3001/getEtalonUkr").then((Response) => {
           setGetEtalon(Response.data[0]);
         });
-    
-    } else if (
-      e.target.parentElement.parentElement.children[0].children[1].checked ===
-      true
-    ) {
-      setMessage("");
-      let dictEng = {
-        A: 0,
-        B: 0,
-        C: 0,
-        D: 0,
-        E: 0,
-        F: 0,
-        G: 0,
-        H: 0,
-        I: 0,
-        J: 0,
-        K: 0,
-        L: 0,
-        M: 0,
-        N: 0,
-        O: 0,
-        P: 0,
-        Q: 0,
-        R: 0,
-        S: 0,
-        T: 0,
-        U: 0,
-        V: 0,
-        W: 0,
-        X: 0,
-        Y: 0,
-        Z: 0,
-      };
-      let etalonDict = {};
+      } else if (
+        e.target.parentElement.parentElement.children[0].children[1].checked ===
+        true
+      ) {
+        setMessage("");
+        let dictEng = {
+          A: 0,
+          B: 0,
+          C: 0,
+          D: 0,
+          E: 0,
+          F: 0,
+          G: 0,
+          H: 0,
+          I: 0,
+          J: 0,
+          K: 0,
+          L: 0,
+          M: 0,
+          N: 0,
+          O: 0,
+          P: 0,
+          Q: 0,
+          R: 0,
+          S: 0,
+          T: 0,
+          U: 0,
+          V: 0,
+          W: 0,
+          X: 0,
+          Y: 0,
+          Z: 0,
+        };
+        let etalonDict = {};
 
-      let count = 0;
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i] in dictEng) {
-          let s = dictEng[arr[i]];
-          s++;
-          dictEng[arr[i]] = s;
-        } else {
-          count++;
+        let count = 0;
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] in dictEng) {
+            let s = dictEng[arr[i]];
+            s++;
+            dictEng[arr[i]] = s;
+          } else {
+            count++;
+          }
         }
-      }
 
-      for (let key in dictEng) {
-        etalonDict[key] = dictEng[key];
-        let s = dictEng[key];
-        dictEng[key] =
-          Math.round(((s * 100) / (arr.length - count)) * 100) / 100;
-      }
-    
+        for (let key in dictEng) {
+          etalonDict[key] = dictEng[key];
+          let s = dictEng[key];
+          dictEng[key] =
+            Math.round(((s * 100) / (arr.length - count)) * 100) / 100;
+        }
+
         setDict(dictEng);
         setEtalon(etalonDict);
         setCount(arr.length - count);
@@ -156,7 +156,10 @@ const Calculator = () => {
         axios.get("http://localhost:3001/getEtalonEng").then((Response) => {
           setGetEtalon(Response.data[0]);
         });
-      
+      }
+    }
+    else{
+      setMessage("Please, input text")
     }
   }
   function Save(e) {
@@ -311,7 +314,7 @@ const Calculator = () => {
   function SortKeys() {
     function uaSort(s1, s2) {
       return s1.localeCompare(s2);
-  }
+    }
     setDict(
       Object.keys(dict)
         .sort(uaSort)
@@ -385,7 +388,7 @@ const Calculator = () => {
   };
   for (let key in dict) {
     table.push(
-      <div>
+      <div key={key}>
         <div className="TableRow">
           <div className="Symvol">{key}</div>
           <div className="Persent">{dict[key]}%</div>
