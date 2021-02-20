@@ -87,16 +87,7 @@ const Calculator = () => {
         dictUkr[key] =
           Math.round(((s * 100) / (arr.length - count)) * 100) / 100;
       }
-      let test = 0;
-      for (let key in dict) {
-        if (dict[key] == NaN) {
-          count++;
-          if (count > 0) {
-            break;
-          }
-        }
-      }
-      if (count === 0) {
+      
         setDict(dictUkr);
         setEtalon(etalonDict);
         setCount(arr.length - count);
@@ -104,9 +95,7 @@ const Calculator = () => {
         axios.get("http://localhost:3001/getEtalonUkr").then((Response) => {
           setGetEtalon(Response.data[0]);
         });
-      } else {
-        setMessage("Please select correct lenguage");
-      }
+    
     } else if (
       e.target.parentElement.parentElement.children[0].children[1].checked ===
       true
@@ -159,16 +148,7 @@ const Calculator = () => {
         dictEng[key] =
           Math.round(((s * 100) / (arr.length - count)) * 100) / 100;
       }
-      let test = 0;
-      for (let key in dict) {
-        if (dict[key] == NaN) {
-          count++;
-          if (count > 0) {
-            break;
-          }
-        }
-      }
-      if (count === 0) {
+    
         setDict(dictEng);
         setEtalon(etalonDict);
         setCount(arr.length - count);
@@ -176,9 +156,7 @@ const Calculator = () => {
         axios.get("http://localhost:3001/getEtalonEng").then((Response) => {
           setGetEtalon(Response.data[0]);
         });
-      } else {
-        setMessage("Please select correct lenguage");
-      }
+      
     }
   }
   function Save(e) {
@@ -331,9 +309,12 @@ const Calculator = () => {
     setDict(newDict);
   }
   function SortKeys() {
+    function uaSort(s1, s2) {
+      return s1.localeCompare(s2);
+  }
     setDict(
       Object.keys(dict)
-        .sort()
+        .sort(uaSort)
         .reduce(function (result, key) {
           result[key] = dict[key];
           return result;
